@@ -35,3 +35,32 @@ This project demonstrates an ETL (Extract, Transform, Load) pipeline that ingest
    - Use Athena to query and analyze data stored in S3.
    - Generate reports and visualizations to gain insights from the Reddit data.
 
+## Setup
+1. Clone the repository.
+   ```bash
+    git clone git@github.com:bhardwajshivam/reddit_data_pipeline.git
+   ```
+2. Create a virtual environment.
+   ```bash
+    python3 -m venv venv
+   ```
+3. Activate the virtual environment.
+   ```bash
+    source venv/bin/activate
+   ```
+4. Install the dependencies.
+   ```bash
+    pip install -r requirements.txt
+   ```
+5. Rename the configuration file and the credentials to the file.
+   ```bash
+    mv config/config.conf.example config/config.conf
+   ```
+6. Starting the containers
+   ```bash
+    docker-compose up -d
+   ```
+7. Launch the Airflow web UI.
+   ```bash
+    open http://localhost:8080
+   ```
