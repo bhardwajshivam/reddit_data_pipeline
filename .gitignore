@@ -3,4 +3,4 @@ reddit_project
 logs
 .idea
 __pycache__
-config
+config/
