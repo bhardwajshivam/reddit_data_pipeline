@@ -3,10 +3,12 @@ import numpy as np
 import pandas as pd
 from praw import Reddit
 import sys
+from utils.constants import POST_FIELDS
+
 
 def connect_reddit(client_id, client_secret, user_agent) -> Reddit:
     try:
-        reddit = praw.Reddit(client_id = client_id,
+        reddit = Reddit(client_id = client_id,
                              client_secret = client_secret,
                              user_agent = user_agent)
         print("connected to reddit!!")
@@ -17,9 +19,16 @@ def connect_reddit(client_id, client_secret, user_agent) -> Reddit:
 
 def extract_posts(reddit_instance: Reddit, subreddit: str, time_filter: str, limit=None):
     subreddit = reddit_instance.subreddit(subreddit)
-    posts = subreddit.top(time_filter, limit=limit)
+    posts = subreddit.top(time_filter=time_filter, limit=limit)
 
-    print(posts)
+    post_lists = []
+
+    for post in posts:
+        post_dict = vars(post)
+        post = {key: post_dict[key] for key in POST_FIELDS}
+        post_lists.append(post)
+
+    return post_lists
 
 def transform_data(post_df: pd.DataFrame):
     post_df['created_utc'] = pd.to_datetime(post_df['created_utc'], unit='s')
